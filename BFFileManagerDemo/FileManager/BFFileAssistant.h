@@ -34,4 +34,7 @@
 - (BOOL)saveFile:(NSData *)fData toPath:(NSString *)filePath;
 - (BOOL)moveFileFromPath:(NSString *)fromPath toPath:(NSString *)toPath;
 
+#pragma mark - 删
+- (BOOL)deleteFileAtPath:(NSString *)path error:(NSError **)error;
+
 @end

@@ -132,6 +132,11 @@ typedef enum {
     return [self.fileManager moveItemAtPath:fromPath toPath:toPath error:nil];
 }
 
+- (BOOL)deleteFileAtPath:(NSString *)path error:(NSError *__autoreleasing *)error {
+    
+    return [self.fileManager removeItemAtPath:path error:error];
+}
+
 #pragma mark - Feature
 
 - (BFFileType)checkFileType:(NSString *)fileName {
