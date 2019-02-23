@@ -15,8 +15,7 @@ typedef void(^resultBlock)(id target, id result, NSError *error);
 
 + (instancetype)defaultAssistant;
 
-#pragma mark - 路径
-// 目录路径
+#pragma mark - 本地文件路径
 /*
  默认在Documents目录上的一个目录
  **/
@@ -29,15 +28,14 @@ typedef void(^resultBlock)(id target, id result, NSError *error);
 // 文件路径
 - (NSString *)getFilePath:(NSString *)fileName fromDirectoryPath:(NSString *)dirtPath;
 
-#pragma mark - 查
+#pragma mark - Function
+#pragma mark  查
 - (NSArray *)getFilesFromDirectoryPath:(NSString *)directoryPath;
 - (BOOL)fileExists:(NSString *)fileName inDirectoryPath:(NSString *)directoryPath;
-
-#pragma mark - 增
+#pragma mark  增
 - (BOOL)saveFile:(NSData *)fData toPath:(NSString *)filePath;
 - (BOOL)moveFileFromPath:(NSString *)fromPath toPath:(NSString *)toPath;
-
-#pragma mark - 删
+#pragma mark  删
 - (BOOL)deleteFileAtPath:(NSString *)path error:(NSError **)error;
 
 #pragma mark - Album
