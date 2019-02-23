@@ -147,7 +147,6 @@ typedef enum {
         
         if (PHAuthorizationStatusDenied == status) {
             if (PHAuthorizationStatusNotDetermined != authStatus) {
-                NSLog(@"需要授权");
                 NSError *error = [self errorForDescription:@"No Authorization"];
                 if (resultBlock) {
                     resultBlock(self, nil, error);
@@ -155,8 +154,9 @@ typedef enum {
             }
         } else if (PHAuthorizationStatusAuthorized == status) {
             // 保存
+            [self saveImage:image toAlbum:albumName andResult:resultBlock];
         } else if (PHAuthorizationStatusRestricted) {
-            NSError *error = [self errorForDescription:@"System Authorization Error"];
+            NSError *error = [self errorForDescription:@"System Error"];
             if (resultBlock) {
                 resultBlock(self, nil, error);
             }
@@ -170,7 +170,7 @@ typedef enum {
     NSError *error = nil;
     
     // 获得相片
-    PHFetchResult<PHAsset *> *createdAssets = [self createdAssets:image];
+    PHFetchResult<PHAsset *> *createdAssets = [self createdAssets:image error:error];
     if (createdAssets == nil) {
         if (resultBlock) {
             error = [self errorForDescription:@"保存图片失败！"];
@@ -180,7 +180,7 @@ typedef enum {
     }
     
     // 获得相册
-    PHAssetCollection *createdCollection = [self createdCollection:albumName];
+    PHAssetCollection *createdCollection = [self createdCollection:albumName error:error];
     if (createdCollection == nil) {
         if (resultBlock) {
             error = [self errorForDescription:@"创建或者获取相册失败！"];
@@ -195,16 +195,14 @@ typedef enum {
         [request insertAssets:createdAssets atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } error:&error];
     
-    // 最后的回调
     if (resultBlock) {
         resultBlock(self, nil, error);
     }
 }
 
 // 获得相片
-- (PHFetchResult<PHAsset *> *)createdAssets:(UIImage *)image
+- (PHFetchResult<PHAsset *> *)createdAssets:(UIImage *)image error:(NSError *)error
 {
-    NSError *error = nil;
     __block NSString *assetID = nil;
     
     // 保存图片到【相机胶卷】
@@ -219,7 +217,7 @@ typedef enum {
 }
 
 // 获得当前App对应的自定义相册
-- (PHAssetCollection *)createdCollection:(NSString *)targetAlbum
+- (PHAssetCollection *)createdCollection:(NSString *)targetAlbum error:(NSError *)error
 {
     // 获得APP名字
     NSString *title;
@@ -241,7 +239,6 @@ typedef enum {
     
     /** 当前App对应的自定义相册没有被创建过 **/
     // 创建一个【自定义相册】
-    NSError *error = nil;
     __block NSString *createdCollectionID = nil;
     [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
         createdCollectionID = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:title].placeholderForCreatedAssetCollection.localIdentifier;
