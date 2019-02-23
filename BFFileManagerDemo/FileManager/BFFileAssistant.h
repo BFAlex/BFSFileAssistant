@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+typedef void(^resultBlock)(id target, id result, NSError *error);
 
 @interface BFFileAssistant : NSObject
 
@@ -36,5 +39,8 @@
 
 #pragma mark - 删
 - (BOOL)deleteFileAtPath:(NSString *)path error:(NSError **)error;
+
+#pragma mark - Album
+- (void)saveImage:(UIImage *)image toAlbum:(NSString *)albumName andResult:(resultBlock)resultBlock;
 
 @end

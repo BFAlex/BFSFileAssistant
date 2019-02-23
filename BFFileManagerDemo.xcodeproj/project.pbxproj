@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C4621699214A105A00CCBDBD /* BFFileAssistant.m in Sources */ = {isa = PBXBuildFile; fileRef = C4621698214A105A00CCBDBD /* BFFileAssistant.m */; };
+		C47FE81C222140740014DF27 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47FE81B222140740014DF27 /* Photos.framework */; };
 		C49646F9215E1914009041CB /* BFRunloop.m in Sources */ = {isa = PBXBuildFile; fileRef = C49646F8215E1914009041CB /* BFRunloop.m */; };
 		C4C1AA4A2148EAF200918775 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C1AA492148EAF200918775 /* AppDelegate.m */; };
 		C4C1AA4D2148EAF200918775 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C1AA4C2148EAF200918775 /* ViewController.m */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		C4621697214A105A00CCBDBD /* BFFileAssistant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFFileAssistant.h; sourceTree = "<group>"; };
 		C4621698214A105A00CCBDBD /* BFFileAssistant.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFFileAssistant.m; sourceTree = "<group>"; };
+		C47FE81B222140740014DF27 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		C49646F7215E1914009041CB /* BFRunloop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFRunloop.h; sourceTree = "<group>"; };
 		C49646F8215E1914009041CB /* BFRunloop.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFRunloop.m; sourceTree = "<group>"; };
 		C4C1AA452148EAF200918775 /* BFFileManagerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BFFileManagerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,17 +55,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C47FE81C222140740014DF27 /* Photos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C47FE81A222140740014DF27 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C47FE81B222140740014DF27 /* Photos.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C4C1AA3C2148EAF200918775 = {
 			isa = PBXGroup;
 			children = (
 				C4C1AA472148EAF200918775 /* BFFileManagerDemo */,
 				C4C1AA462148EAF200918775 /* Products */,
+				C47FE81A222140740014DF27 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

@@ -7,6 +7,7 @@
 //
 
 #import "BFFileAssistant.h"
+#import <Photos/Photos.h>
 
 typedef enum {
     
@@ -137,6 +138,121 @@ typedef enum {
     return [self.fileManager removeItemAtPath:path error:error];
 }
 
+#pragma mark Album
+
+- (void)saveImage:(UIImage *)image toAlbum:(NSString *)albumName andResult:(resultBlock)resultBlock {
+    
+    PHAuthorizationStatus authStatus = [PHPhotoLibrary authorizationStatus];
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        
+        if (PHAuthorizationStatusDenied == status) {
+            if (PHAuthorizationStatusNotDetermined != authStatus) {
+                NSLog(@"需要授权");
+                NSError *error = [self errorForDescription:@"No Authorization"];
+                if (resultBlock) {
+                    resultBlock(self, nil, error);
+                }
+            }
+        } else if (PHAuthorizationStatusAuthorized == status) {
+            // 保存
+        } else if (PHAuthorizationStatusRestricted) {
+            NSError *error = [self errorForDescription:@"System Authorization Error"];
+            if (resultBlock) {
+                resultBlock(self, nil, error);
+            }
+        }
+    }];
+}
+
+// 保存图片到自定义相册
+- (void)saveImageIntoAlbum:(UIImage *)image album:(NSString *)albumName andResult:(resultBlock)resultBlock
+{
+    NSError *error = nil;
+    
+    // 获得相片
+    PHFetchResult<PHAsset *> *createdAssets = [self createdAssets:image];
+    if (createdAssets == nil) {
+        if (resultBlock) {
+            error = [self errorForDescription:@"保存图片失败！"];
+            resultBlock(self, nil, error);
+        }
+        return;
+    }
+    
+    // 获得相册
+    PHAssetCollection *createdCollection = [self createdCollection:albumName];
+    if (createdCollection == nil) {
+        if (resultBlock) {
+            error = [self errorForDescription:@"创建或者获取相册失败！"];
+            resultBlock(self, nil, error);
+        }
+        return;
+    }
+    
+    // 添加刚才保存的图片到【自定义相册】
+    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+        PHAssetCollectionChangeRequest *request = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:createdCollection];
+        [request insertAssets:createdAssets atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    } error:&error];
+    
+    // 最后的回调
+    if (resultBlock) {
+        resultBlock(self, nil, error);
+    }
+}
+
+// 获得相片
+- (PHFetchResult<PHAsset *> *)createdAssets:(UIImage *)image
+{
+    NSError *error = nil;
+    __block NSString *assetID = nil;
+    
+    // 保存图片到【相机胶卷】
+    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+        assetID = [PHAssetChangeRequest creationRequestForAssetFromImage:image].placeholderForCreatedAsset.localIdentifier;
+    } error:&error];
+    
+    if (error) return nil;
+    
+    // 获取刚才保存的相片
+    return [PHAsset fetchAssetsWithLocalIdentifiers:@[assetID] options:nil];
+}
+
+// 获得当前App对应的自定义相册
+- (PHAssetCollection *)createdCollection:(NSString *)targetAlbum
+{
+    // 获得APP名字
+    NSString *title;
+    if (targetAlbum.length > 0) {
+        title = targetAlbum;
+    } else {
+        title = [NSBundle mainBundle].infoDictionary[(__bridge NSString *)kCFBundleNameKey];
+    }
+    
+    // 抓取所有的自定义相册
+    PHFetchResult<PHAssetCollection *> *collections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    
+    // 查找当前App对应的自定义相册
+    for (PHAssetCollection *collection in collections) {
+        if ([collection.localizedTitle isEqualToString:title]) {
+            return collection;
+        }
+    }
+    
+    /** 当前App对应的自定义相册没有被创建过 **/
+    // 创建一个【自定义相册】
+    NSError *error = nil;
+    __block NSString *createdCollectionID = nil;
+    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+        createdCollectionID = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:title].placeholderForCreatedAssetCollection.localIdentifier;
+    } error:&error];
+    
+    if (error) return nil;
+    
+    // 根据唯一标识获得刚才创建的相册
+    return [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[createdCollectionID] options:nil].firstObject;
+}
+
 #pragma mark - Feature
 
 - (BFFileType)checkFileType:(NSString *)fileName {
@@ -171,6 +287,14 @@ typedef enum {
     }
     
     return fileType;
+}
+
+- (NSError *)errorForDescription:(NSString *)description {
+    
+    if (description.length < 0) {
+        description = @"Unknown reason";
+    }
+    return [NSError errorWithDomain:NSURLErrorDomain code:110 userInfo:@{NSLocalizedDescriptionKey:description}];
 }
 
 @end
