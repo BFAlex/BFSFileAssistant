@@ -32,6 +32,7 @@ typedef void(^resultBlock)(id target, id result, NSError *error);
 #pragma mark  查
 - (NSArray *)getFilesFromDirectoryPath:(NSString *)directoryPath;
 - (BOOL)fileExists:(NSString *)fileName inDirectoryPath:(NSString *)directoryPath;
+- (BOOL)isFileExists:(NSString *)filePath;
 #pragma mark  增
 - (BOOL)saveFile:(NSData *)fData toPath:(NSString *)filePath;
 - (BOOL)moveFileFromPath:(NSString *)fromPath toPath:(NSString *)toPath;

@@ -68,6 +68,15 @@ typedef enum {
     return fExists;
 }
 
+- (BOOL)isFileExists:(NSString *)filePath {
+    
+    if (filePath.length > 0) {
+        return [self.fileManager fileExistsAtPath:filePath];
+    } else {
+        return NO;
+    }
+}
+
 - (NSString *)getFilePath:(NSString *)fileName fromDirectoryPath:(NSString *)dirtPath {
     
     NSString *filePath = [dirtPath stringByAppendingPathComponent:fileName];
