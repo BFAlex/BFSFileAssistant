@@ -259,6 +259,88 @@ typedef enum {
     return [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[createdCollectionID] options:nil].firstObject;
 }
 
+#pragma mark MediaFile
+
++ (void)saveMeidaFileIntoDeviceAlbumn:(NSString *)filePath video:(BOOL)isVideo {
+    // 判断授权状态
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusRestricted) { // 此应用程序没有被授权访问的照片数据。可能是家长控制权限。
+        NSLog(@"因为系统原因, 无法访问相册");
+    } else if (status == PHAuthorizationStatusDenied) { // 用户拒绝访问相册
+        NSLog(@"用户拒绝访问相册, 无法访问相册");
+    } else if (status == PHAuthorizationStatusAuthorized) { // 用户允许访问相册
+        // 放一些使用相册的代码
+        [self saveMediaToPhone:filePath video:isVideo];
+    } else if (status == PHAuthorizationStatusNotDetermined) { // 用户还没有做出选择
+        // 弹框请求用户授权
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            if (status == PHAuthorizationStatusAuthorized) { // 用户点击了好
+                // 放一些使用相册的代码
+                [self saveMediaToPhone:filePath video:isVideo];
+            }
+        }];
+    }
+}
+
++ (void)saveMediaToPhone:(NSString *)filePath video:(BOOL)isVideo {
+    __block  NSString *assetLocalIdentifier;
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        NSURL *url = [NSURL fileURLWithPath:filePath];
+        if (!isVideo) {
+            //1.保存图片到相机胶卷中----创建图片的请求
+            assetLocalIdentifier = [PHAssetCreationRequest creationRequestForAssetFromImageAtFileURL:url].placeholderForCreatedAsset.localIdentifier;
+        }else {
+            //1.保存视频到相机胶卷中----创建图片的请求
+            assetLocalIdentifier = [PHAssetCreationRequest creationRequestForAssetFromVideoAtFileURL:url].placeholderForCreatedAsset.localIdentifier;
+        }
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        if(success == NO){
+            NSLog(@"保存图片/视频失败----(创建图片/视频的请求)");
+            return ;
+        }
+        PHAssetCollection *collection = [self getCustomCollection];
+        if (!collection) return;
+        // 3.将刚刚添加到"相机胶卷"中的图片到"自己创建相簿"中
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            //获得图片/视频
+            PHAsset *asset = [PHAsset fetchAssetsWithLocalIdentifiers:@[assetLocalIdentifier] options:nil].lastObject;
+            //添加图片/视频到相簿中的请求
+            PHAssetCollectionChangeRequest *request = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:collection];
+            // 添加图片/视频到相簿
+            [request addAssets:@[asset]];
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            if(success){
+                NSLog(@"保存图片/视频到创建的相簿成功");
+            }else{
+                NSLog(@"保存图片/视频到创建的相簿失败");
+            }
+        }];
+    }];
+}
+
+/**
+ 获取自定义相册
+ */
++ (PHAssetCollection *)getCustomCollection {
+    // 获取app名字  相册以app名字命名
+    NSString *appName = [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleNameKey];
+    // 检查是否已经创建自定义相册
+    PHFetchResult<PHAssetCollection *> *collections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    for (PHAssetCollection *collection in collections) {
+        if ([collection.localizedTitle isEqualToString:appName]) {
+            return collection;
+        }
+    }
+    
+    // 没有则创建一个
+    __block NSString *createdCollectionId = nil;
+    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+        createdCollectionId = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:appName].placeholderForCreatedAssetCollection.localIdentifier;
+    } error:nil];
+    if (!createdCollectionId) return nil;
+    return [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[createdCollectionId] options:nil].firstObject;
+}
+
 #pragma mark - Feature
 
 - (BFFileType)checkFileType:(NSString *)fileName {

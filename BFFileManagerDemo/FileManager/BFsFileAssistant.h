@@ -41,5 +41,9 @@ typedef void(^resultBlock)(id target, id result, NSError *error);
 
 #pragma mark - Album
 - (void)saveImage:(UIImage *)image toAlbum:(NSString *)albumName andResult:(resultBlock)resultBlock;
+/*
+ 把filePath指向的多媒体文件保存到APP名字下的系统相册目录
+ */
++ (void)saveMeidaFileIntoDeviceAlbumn:(NSString *)filePath video:(BOOL)isVideo;
 
 @end
