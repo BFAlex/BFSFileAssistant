@@ -6,7 +6,7 @@
 //  Copyright © 2018年 BFAlex. All rights reserved.
 //
 
-#import "BFFileManager.h"
+#import "BFFileManager_old.h"
 
 typedef enum {
     
@@ -17,12 +17,12 @@ typedef enum {
     
 } BFFileType;
 
-@interface BFFileManager()
+@interface BFFileManager_old()
 @property (nonatomic, strong) NSFileManager *fileManager;
 
 @end
 
-@implementation BFFileManager
+@implementation BFFileManager_old
 
 #pragma mark - Property
 
@@ -39,10 +39,10 @@ typedef enum {
 
 + (instancetype)defaultManager {
     
-    static BFFileManager *fm;
+    static BFFileManager_old *fm;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        fm = [[BFFileManager alloc] init];
+        fm = [[BFFileManager_old alloc] init];
     });
     
     return fm;

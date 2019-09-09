@@ -11,7 +11,7 @@
 
 typedef void(^resultBlock)(id target, id result, NSError *error);
 
-@interface BFFileAssistant : NSObject
+@interface BFsFileAssistant : NSObject
 
 + (instancetype)defaultAssistant;
 

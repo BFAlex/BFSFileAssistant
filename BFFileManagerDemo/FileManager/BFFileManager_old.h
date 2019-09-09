@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BFFileManager : NSObject
+@interface BFFileManager_old : NSObject
 
 + (instancetype)defaultManager;
 

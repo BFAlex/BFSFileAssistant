@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C4621699214A105A00CCBDBD /* BFFileAssistant.m in Sources */ = {isa = PBXBuildFile; fileRef = C4621698214A105A00CCBDBD /* BFFileAssistant.m */; };
+		C4621699214A105A00CCBDBD /* BFsFileAssistant.m in Sources */ = {isa = PBXBuildFile; fileRef = C4621698214A105A00CCBDBD /* BFsFileAssistant.m */; };
 		C47FE81C222140740014DF27 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47FE81B222140740014DF27 /* Photos.framework */; };
 		C49646F9215E1914009041CB /* BFRunloop.m in Sources */ = {isa = PBXBuildFile; fileRef = C49646F8215E1914009041CB /* BFRunloop.m */; };
 		C4C1AA4A2148EAF200918775 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C1AA492148EAF200918775 /* AppDelegate.m */; };
@@ -16,7 +16,7 @@
 		C4C1AA522148EAF700918775 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4C1AA512148EAF700918775 /* Assets.xcassets */; };
 		C4C1AA552148EAF700918775 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C1AA532148EAF700918775 /* LaunchScreen.storyboard */; };
 		C4C1AA582148EAF700918775 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C1AA572148EAF700918775 /* main.m */; };
-		C4C1AA612148EB4C00918775 /* BFFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C1AA602148EB4C00918775 /* BFFileManager.m */; };
+		C4C1AA612148EB4C00918775 /* BFFileManager_old.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C1AA602148EB4C00918775 /* BFFileManager_old.m */; };
 		C4C1AA662149006C00918775 /* photo2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C4C1AA632149006C00918775 /* photo2.jpg */; };
 		C4C1AA672149006C00918775 /* photo3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C4C1AA642149006C00918775 /* photo3.jpg */; };
 		C4C1AA682149006C00918775 /* photo1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C4C1AA652149006C00918775 /* photo1.jpg */; };
@@ -25,8 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C4621697214A105A00CCBDBD /* BFFileAssistant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFFileAssistant.h; sourceTree = "<group>"; };
-		C4621698214A105A00CCBDBD /* BFFileAssistant.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFFileAssistant.m; sourceTree = "<group>"; };
+		C4621697214A105A00CCBDBD /* BFsFileAssistant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFsFileAssistant.h; sourceTree = "<group>"; };
+		C4621698214A105A00CCBDBD /* BFsFileAssistant.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFsFileAssistant.m; sourceTree = "<group>"; };
 		C47FE81B222140740014DF27 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		C49646F7215E1914009041CB /* BFRunloop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFRunloop.h; sourceTree = "<group>"; };
 		C49646F8215E1914009041CB /* BFRunloop.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFRunloop.m; sourceTree = "<group>"; };
@@ -40,8 +40,8 @@
 		C4C1AA542148EAF700918775 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4C1AA562148EAF700918775 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4C1AA572148EAF700918775 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C4C1AA5F2148EB4C00918775 /* BFFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFFileManager.h; sourceTree = "<group>"; };
-		C4C1AA602148EB4C00918775 /* BFFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFFileManager.m; sourceTree = "<group>"; };
+		C4C1AA5F2148EB4C00918775 /* BFFileManager_old.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFFileManager_old.h; sourceTree = "<group>"; };
+		C4C1AA602148EB4C00918775 /* BFFileManager_old.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFFileManager_old.m; sourceTree = "<group>"; };
 		C4C1AA632149006C00918775 /* photo2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo2.jpg; sourceTree = "<group>"; };
 		C4C1AA642149006C00918775 /* photo3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo3.jpg; sourceTree = "<group>"; };
 		C4C1AA652149006C00918775 /* photo1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo1.jpg; sourceTree = "<group>"; };
@@ -109,10 +109,10 @@
 		C4C1AA5E2148EB3000918775 /* FileManager */ = {
 			isa = PBXGroup;
 			children = (
-				C4C1AA5F2148EB4C00918775 /* BFFileManager.h */,
-				C4C1AA602148EB4C00918775 /* BFFileManager.m */,
-				C4621697214A105A00CCBDBD /* BFFileAssistant.h */,
-				C4621698214A105A00CCBDBD /* BFFileAssistant.m */,
+				C4C1AA5F2148EB4C00918775 /* BFFileManager_old.h */,
+				C4C1AA602148EB4C00918775 /* BFFileManager_old.m */,
+				C4621697214A105A00CCBDBD /* BFsFileAssistant.h */,
+				C4621698214A105A00CCBDBD /* BFsFileAssistant.m */,
 			);
 			path = FileManager;
 			sourceTree = "<group>";
@@ -215,11 +215,11 @@
 			files = (
 				C4C1AA4D2148EAF200918775 /* ViewController.m in Sources */,
 				C4CC1614215B25440033C3C7 /* BFFileStream.m in Sources */,
-				C4C1AA612148EB4C00918775 /* BFFileManager.m in Sources */,
+				C4C1AA612148EB4C00918775 /* BFFileManager_old.m in Sources */,
 				C4C1AA582148EAF700918775 /* main.m in Sources */,
 				C49646F9215E1914009041CB /* BFRunloop.m in Sources */,
 				C4C1AA4A2148EAF200918775 /* AppDelegate.m in Sources */,
-				C4621699214A105A00CCBDBD /* BFFileAssistant.m in Sources */,
+				C4621699214A105A00CCBDBD /* BFsFileAssistant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

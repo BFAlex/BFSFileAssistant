@@ -6,7 +6,7 @@
 //  Copyright © 2018年 BFAlex. All rights reserved.
 //
 
-#import "BFFileAssistant.h"
+#import "BFsFileAssistant.h"
 #import <Photos/Photos.h>
 
 typedef enum {
@@ -18,12 +18,12 @@ typedef enum {
     
 } BFFileType;
 
-@interface BFFileAssistant()
+@interface BFsFileAssistant()
 @property (nonatomic, strong) NSFileManager *fileManager;
 
 @end
 
-@implementation BFFileAssistant
+@implementation BFsFileAssistant
 
 #pragma mark - Property
 
@@ -40,10 +40,10 @@ typedef enum {
 
 + (instancetype)defaultAssistant {
     
-    static BFFileAssistant *assistant;
+    static BFsFileAssistant *assistant;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        assistant = [[BFFileAssistant alloc] init];
+        assistant = [[BFsFileAssistant alloc] init];
     });
     
     return assistant;

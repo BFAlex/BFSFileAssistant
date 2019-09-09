@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "BFFileManager.h"
+#import "BFFileManager_old.h"
 #import "BFFileStream.h"
 
 @interface ViewController ()
@@ -78,7 +78,7 @@
 
 - (void)testVideoFile {
     
-    BFFileManager *fm = [BFFileManager defaultManager];
+    BFFileManager_old *fm = [BFFileManager_old defaultManager];
     
     NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"video.MOV" ofType:nil];
     NSString *toPath = [fm getFilePath:@"test_video.mov" fromDirectoryPath:[fm getDirectoryPathFromDirectories:@[@"Video"]]];
@@ -90,7 +90,7 @@
 
 - (void)testPhotoFile {
     
-    BFFileManager *fm = [BFFileManager defaultManager];
+    BFFileManager_old *fm = [BFFileManager_old defaultManager];
     NSString *testFolderName = @"TestFolder";
     
     [fm fileExists:@"test.png" inDirectoryPath:[fm getDirectoryPathFromDirectories:@[testFolderName]]];

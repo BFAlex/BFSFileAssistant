@@ -7,7 +7,7 @@
 //
 
 #import "BFFileStream.h"
-#import "BFFileAssistant.h"
+#import "BFsFileAssistant.h"
 
 @implementation BFFileStream
 
@@ -29,7 +29,7 @@
     
 //    [self testData];
     
-    BFFileAssistant *fa = [BFFileAssistant defaultAssistant];
+    BFsFileAssistant *fa = [BFsFileAssistant defaultAssistant];
     NSString *dirtPath = [fa getDirectoryPathOfFolderInDocumentsDirectory:@"Test"];
     NSString *filePath = [fa getFilePath:@"DataTest.txt" fromDirectoryPath:dirtPath];
     [self createFileAtPath:filePath];
